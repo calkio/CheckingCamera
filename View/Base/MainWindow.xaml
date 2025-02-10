@@ -4,9 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CheckingCamera"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:viewCam="clr-namespace:CheckingCamera.View.Camera.Base"
+        xmlns:vmCam="clr-namespace:CheckingCamera.ViewModel.Camera.Base"
+        mc:Ignorable="d" WindowState="Maximized"
+        Title="Проверка камеры" Height="1080" Width="1920">
 
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vmCam:CameraVM}">
+            <viewCam:ParametersCameraView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid Background="#3a454a">
+        <ContentControl Grid.Column="1" 
+                    Content="{Binding SelectedContent}"/>
     </Grid>
 </Window>

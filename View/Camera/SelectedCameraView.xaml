@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="CheckingCamera.View.Camera.SelectedCameraView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CheckingCamera.View.Camera"
+             mc:Ignorable="d">
+    
+    <StackPanel>
+
+        <ComboBox ItemsSource="{Binding AllCameras, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+          SelectedItem="{Binding SelectedCamera, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+          Style="{StaticResource SComboBox}"
+          Margin="15"/>
+
+        <Button Content="Запустить стрим"
+        Margin="15"
+        Command="{Binding StartStreamCommand}"
+        Style="{StaticResource SButton}"/>
+
+        <Button Content="Выключить стрим"
+        Margin="15"
+        Command="{Binding StopStreamCommand}"
+        Style="{StaticResource SButton}"/>
+
+        <Button Content="Сохранить фото"
+        Margin="15"
+        Command="{Binding SaveImageCommand}"
+        Style="{StaticResource SButton}"/>
+
+    </StackPanel>
+    
+</UserControl>

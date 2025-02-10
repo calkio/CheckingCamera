@@ -16,6 +16,11 @@
     <PackageReference Include="Emgu.CV" Version="4.10.0.5680" />
     <PackageReference Include="Emgu.CV.Bitmap" Version="4.10.0.5680" />
     <PackageReference Include="Emgu.CV.runtime.windows" Version="4.10.0.5680" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\WARD\Camera.API\Camera.API\Camera.API\Camera.API.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35527.113 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckingCamera", "CheckingCamera.csproj", "{FC4548FA-58E0-4038-BF7D-917F9974AEC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camera.API", "..\..\WARD\Camera.API\Camera.API\Camera.API\Camera.API.csproj", "{2E85A9F0-0CC4-4D57-AF3F-62F13AD64C3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FC4548FA-58E0-4038-BF7D-917F9974AEC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC4548FA-58E0-4038-BF7D-917F9974AEC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC4548FA-58E0-4038-BF7D-917F9974AEC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E85A9F0-0CC4-4D57-AF3F-62F13AD64C3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E85A9F0-0CC4-4D57-AF3F-62F13AD64C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E85A9F0-0CC4-4D57-AF3F-62F13AD64C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E85A9F0-0CC4-4D57-AF3F-62F13AD64C3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

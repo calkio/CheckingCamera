@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="CheckingCamera.View.Camera.CanvasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CheckingCamera.View.Camera"
+             xmlns:convert="clr-namespace:CheckingCamera.Infastructure.Converter"
+             xmlns:zoom="clr-namespace:CheckingCamera.Infastructure.Resources.WorkingImage"
+             mc:Ignorable="d">
+    
+    <UserControl.Resources>
+        <convert:ImageConverter x:Key="ImageConverter"/>
+        <Style x:Key="SelectionRectangleStyle" TargetType="Rectangle">
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeThickness" Value="2"/>
+            <Setter Property="StrokeDashArray" Value="4 2"/>
+        </Style>
+    </UserControl.Resources>
+
+    <zoom:ZoomBorder>
+        <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}" 
+   ClipToBounds="True" Stretch="Uniform" />
+    </zoom:ZoomBorder>
+    
+</UserControl>
