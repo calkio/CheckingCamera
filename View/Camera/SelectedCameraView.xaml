@@ -44,10 +44,6 @@
      Command="{Binding SharpeningAlgorithmCommand}"
      Style="{StaticResource SButton}"/>
 
-            <Button Content="Обновить параметры камеры"
-     Margin="15"
-     Command="{Binding UpdateCfgCamCommand}"
-     Style="{StaticResource SButton}"/>
 
 
             <TextBox Text="{Binding InfoPixel}"
@@ -63,7 +59,7 @@
             <Label Content="Exposure"
            Style="{StaticResource SLabelValue}"/>
             <Slider Value="{Binding Exposure, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-            Minimum="-20" Maximum="20"/>
+            Minimum="-20" Maximum="100"/>
 
             <Label Content="Brightness"
            Style="{StaticResource SLabelValue}"/>

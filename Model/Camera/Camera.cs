@@ -9,9 +9,49 @@ namespace CheckingCamera.Model.Camera
         public int Index { get; }
         public string Name { get; }
         public string Path { get; }
-        public int Exposure { get; set; } = 7;
-        public int Brightness { get; set; } = 10;
-        public int Contrast { get; set; } = 1;
+
+
+        private int _exposure = -10;
+        public int Exposure
+        {
+            get => _exposure;
+            set
+            {
+                _exposure = value;
+                if (_videoCapture != null)
+                {
+                    _videoCapture.Set(CapProp.Exposure, value);
+                }
+            }
+        }
+
+        private int _brightness = 10;
+        public int Brightness
+        {
+            get => _brightness;
+            set
+            {
+                _brightness = value;
+                if (_videoCapture != null)
+                {
+                    _videoCapture.Set(CapProp.Brightness, value);
+                }
+            }
+        }
+
+        private int _contrast = 1;
+        public int Contrast
+        {
+            get => _contrast;
+            set
+            {
+                _contrast = value;
+                if (_videoCapture != null)
+                {
+                    _videoCapture.Set(CapProp.Contrast, value);
+                }
+            }
+        }
         public int Focus { get; set; } = 0;
 
 
@@ -60,8 +100,8 @@ namespace CheckingCamera.Model.Camera
             _videoCapture.Set(CapProp.FrameHeight, frameHeight);
             _videoCapture.Set(CapProp.Focus, Focus);
 
-            //_videoCapture.Set(CapProp.AutoExposure, 0);
-            //_videoCapture.Set(CapProp.Exposure, Exposure);
+            _videoCapture.Set(CapProp.AutoExposure, 0);
+            _videoCapture.Set(CapProp.Exposure, Exposure);
 
             // Делаем короткую паузу, чтобы камера «прогрелась»:
             Thread.Sleep(500);
@@ -166,15 +206,9 @@ namespace CheckingCamera.Model.Camera
         {
             StopStreamVideo();
             _videoCapture?.Dispose();
+            _videoCapture = null;
             _currentFrame?.Dispose();
             _lastFrame?.Dispose();
-        }
-
-        public void UpdateCfg()
-        {
-            if (_videoCapture != null)
-            {
-            }
         }
     }
 }

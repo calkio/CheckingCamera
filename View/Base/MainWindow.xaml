@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CheckingCamera"
         xmlns:viewCam="clr-namespace:CheckingCamera.View.Camera.Base"
         xmlns:vmCam="clr-namespace:CheckingCamera.ViewModel.Camera.Base"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d" WindowState="Maximized"
         Title="Проверка камеры" Height="1080" Width="1920">
 

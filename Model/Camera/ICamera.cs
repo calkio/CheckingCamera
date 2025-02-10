@@ -17,7 +17,7 @@ namespace CheckingCamera.Model.Camera
 
         void StartStreamVideo(int fps);
         void StopStreamVideo();
-        void UpdateCfg();
+        void Dispose();
         Image<Bgr, byte> CapturePhoto();
         bool IsOpened { get; }
     }
