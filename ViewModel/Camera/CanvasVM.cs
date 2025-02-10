@@ -3,7 +3,6 @@ using CheckingCamera.ViewModel.Base;
 using Emgu.CV.Structure;
 using Emgu.CV;
 using System.Collections.ObjectModel;
-using WARD.Core.Entity.Image;
 using System.Windows;
 
 namespace CheckingCamera.ViewModel.Camera
@@ -40,21 +39,6 @@ namespace CheckingCamera.ViewModel.Camera
             }
         }
 
-
-        private ObservableCollection<SegmentPhoto> _segments = new ObservableCollection<SegmentPhoto>()
-        {
-            new SegmentPhoto(1,1,1,1),
-            new SegmentPhoto(1,1,1,1),
-            new SegmentPhoto(1,1,1,1),
-            new SegmentPhoto(1,1,1,1)
-        };
-        public ObservableCollection<SegmentPhoto> Segments { get => _segments; set => Set(ref _segments, value); }
-
-
-        public SegmentPhoto _segment = new SegmentPhoto(0, 0, 0, 0);
-        public SegmentPhoto Segment { get => _segment; set => Set(ref _segment, value); }
-
-
         public CanvasVM(MainVM mvvm)
         {
             _mvvm = mvvm;
@@ -66,23 +50,6 @@ namespace CheckingCamera.ViewModel.Camera
             int y = (int)topLeft.Y;
             int width = Math.Abs((int)topLeft.X - (int)bottomRight.X);
             int height = Math.Abs((int)topLeft.Y - (int)bottomRight.Y);
-            Segment = new SegmentPhoto(x, y, width, height);
-
-            Segments[_countSegment % 4] = Segment;
-            _countSegment++;
-
-            DrawRectangle();
-        }
-
-        public void DrawRectangle()
-        {
-            if (Image != null)
-            {
-                var clone = Image.Clone();
-                clone.Draw(new System.Drawing.Rectangle(_segment.X, _segment.Y, _segment.Width, _segment.Height), new Bgr(System.Drawing.Color.Red), 2); // Рисуем прямоугольник на изображении
-
-                Image = clone;
-            }
         }
 
         public void OnMouseMove(Point pixel)

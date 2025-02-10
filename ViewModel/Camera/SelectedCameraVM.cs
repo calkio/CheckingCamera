@@ -4,9 +4,9 @@ using Emgu.CV.Structure;
 using Emgu.CV;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using WARD.Core.Entity.Camera;
 using Ookii.Dialogs.Wpf;
 using CheckingCamera.Model;
+using CheckingCamera.Model.Camera;
 
 namespace CheckingCamera.ViewModel.Camera
 {

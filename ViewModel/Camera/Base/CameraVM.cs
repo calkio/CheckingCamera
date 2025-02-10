@@ -1,4 +1,4 @@
-﻿using Camera.API;
+﻿using CheckingCamera.Model.Camera;
 using CheckingCamera.ViewModel.Base;
 
 namespace CheckingCamera.ViewModel.Camera.Base
