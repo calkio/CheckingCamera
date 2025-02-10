@@ -41,6 +41,16 @@ namespace CheckingCamera.ViewModel.Camera
         public string InfoPixelCoordinate { get => _infoPixelCoordinate; set => Set(ref _infoPixelCoordinate, value); }
 
 
+        private int _exposure;
+        public int Exposure { get => _exposure; set => Set(ref _exposure, value); }
+
+        private int _brightness;
+        public int Brightness { get => _brightness; set => Set(ref _brightness, value); }
+
+        private int _contrast;
+        public int Contrast { get => _contrast; set => Set(ref _contrast, value); }
+
+
         private ICamera _selectedCamera;
         public ICamera SelectedCamera
         {
@@ -89,6 +99,10 @@ namespace CheckingCamera.ViewModel.Camera
         public ICommand SharpeningAlgorithmCommand => _sharpeningAlgorithmCommand;
 
 
+        private readonly AsyncRelayCommand _updateCfgCamCommand;
+        public ICommand UpdateCfgCamCommand => _updateCfgCamCommand;
+
+
         public SelectedCameraVM(MainVM mvvm, ICameraManager cameraManager, CanvasVM canvasVM)
         {
             _mvvm = mvvm;
@@ -109,6 +123,7 @@ namespace CheckingCamera.ViewModel.Camera
             _saveImageStreamStartCommand = new AsyncRelayCommand(SaveImageStreamStartImplAsync, CanSaveImageStreamStart);
             _saveImageStreamEndCommand = new AsyncRelayCommand(SaveImageStreamEndImplAsync, CanSaveImageStreamEnd);
             _sharpeningAlgorithmCommand = new AsyncRelayCommand(SharpeningAlgorithmImplAsync, CanSharpeningAlgorithm);
+            _updateCfgCamCommand = new AsyncRelayCommand(UpdateCfgCamImplAsync, CanUpdateCfgCamm);
         }
 
        
@@ -223,6 +238,15 @@ namespace CheckingCamera.ViewModel.Camera
             _canvasVM.Image = new Image<Bgr, byte>(beterImage);
         }
         private bool CanSharpeningAlgorithm() => true;
+
+
+        private async Task UpdateCfgCamImplAsync()
+        {
+            SelectedCamera.Exposure = Exposure;
+            SelectedCamera.Brightness = Brightness;
+            SelectedCamera.Contrast = Contrast;
+        }
+        private bool CanUpdateCfgCamm() => true;
 
 
 

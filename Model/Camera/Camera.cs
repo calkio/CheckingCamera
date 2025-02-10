@@ -9,7 +9,7 @@ namespace CheckingCamera.Model.Camera
         public int Index { get; }
         public string Name { get; }
         public string Path { get; }
-        public int Exposure { get; set; } = 5;
+        public int Exposure { get; set; } = 7;
         public int Brightness { get; set; } = 10;
         public int Contrast { get; set; } = 1;
         public int Focus { get; set; } = 0;
@@ -60,8 +60,8 @@ namespace CheckingCamera.Model.Camera
             _videoCapture.Set(CapProp.FrameHeight, frameHeight);
             _videoCapture.Set(CapProp.Focus, Focus);
 
-            _videoCapture.Set(CapProp.AutoExposure, 0);
-            _videoCapture.Set(CapProp.Exposure, Exposure);
+            //_videoCapture.Set(CapProp.AutoExposure, 0);
+            //_videoCapture.Set(CapProp.Exposure, Exposure);
 
             // Делаем короткую паузу, чтобы камера «прогрелась»:
             Thread.Sleep(500);
@@ -172,11 +172,8 @@ namespace CheckingCamera.Model.Camera
 
         public void UpdateCfg()
         {
-            StopStreamVideo();
             if (_videoCapture != null)
             {
-                _videoCapture.Stop();
-                _videoCapture.Dispose();
             }
         }
     }

@@ -61,7 +61,7 @@ namespace CheckingCamera.ViewModel.Camera
                 var channelR = _image.Data[(int)pixel.Y, (int)pixel.X, 2];
                 string newInfo = $"B - {channelB}, G - {channelG}, R - {channelR}";
                 _mvvm.CameraVM.SelectedCameraVM.InfoPixel = newInfo;
-                _mvvm.CameraVM.SelectedCameraVM.InfoPixelCoordinate = $"X - {pixel.X}, Y - {pixel.Y}";
+                _mvvm.CameraVM.SelectedCameraVM.InfoPixelCoordinate = $"X - {(int)pixel.X}, Y - {(int)pixel.Y}";
             }
             catch
             {

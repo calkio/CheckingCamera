@@ -5,55 +5,77 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CheckingCamera.View.Camera"
              mc:Ignorable="d">
-    
-    <StackPanel>
 
-        <ComboBox ItemsSource="{Binding AllCameras, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-          SelectedItem="{Binding SelectedCamera, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-          Style="{StaticResource SComboBox}"
-          Margin="15"/>
+    <ScrollViewer>
+        <StackPanel>
 
-        <Button Content="Запустить стрим"
-        Margin="15"
-        Command="{Binding StartStreamCommand}"
-        Style="{StaticResource SButton}"/>
+            <ComboBox ItemsSource="{Binding AllCameras, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+      SelectedItem="{Binding SelectedCamera, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+      Style="{StaticResource SComboBox}"
+      Margin="15"/>
 
-        <Button Content="Выключить стрим"
-        Margin="15"
-        Command="{Binding StopStreamCommand}"
-        Style="{StaticResource SButton}"/>
+            <Button Content="Запустить стрим"
+    Margin="15"
+    Command="{Binding StartStreamCommand}"
+    Style="{StaticResource SButton}"/>
 
-        <Button Content="Сохранить фото"
-        Margin="15"
-        Command="{Binding SaveImageCommand}"
-        Style="{StaticResource SButton}"/>
+            <Button Content="Выключить стрим"
+    Margin="15"
+    Command="{Binding StopStreamCommand}"
+    Style="{StaticResource SButton}"/>
 
-        <Button Content="Начать сохранять фото стрима"
-        Margin="15"
-        Command="{Binding SaveImageStreamStartCommand}"
-        Style="{StaticResource SButton}"/>
+            <Button Content="Сохранить фото"
+    Margin="15"
+    Command="{Binding SaveImageCommand}"
+    Style="{StaticResource SButton}"/>
 
-        <Button Content="Закончить сохранять фото стрима"
-        Margin="15"
-        Command="{Binding SaveImageStreamEndCommand}"
-        Style="{StaticResource SButton}"/>
+            <Button Content="Начать сохранять фото стрима"
+    Margin="15"
+    Command="{Binding SaveImageStreamStartCommand}"
+    Style="{StaticResource SButton}"/>
 
-        <Button Content="Начать алгоритм резкости"
-         Margin="15"
-         Command="{Binding SharpeningAlgorithmCommand}"
-         Style="{StaticResource SButton}"/>
+            <Button Content="Закончить сохранять фото стрима"
+    Margin="15"
+    Command="{Binding SaveImageStreamEndCommand}"
+    Style="{StaticResource SButton}"/>
+
+            <Button Content="Начать алгоритм резкости"
+     Margin="15"
+     Command="{Binding SharpeningAlgorithmCommand}"
+     Style="{StaticResource SButton}"/>
+
+            <Button Content="Обновить параметры камеры"
+     Margin="15"
+     Command="{Binding UpdateCfgCamCommand}"
+     Style="{StaticResource SButton}"/>
 
 
-        <TextBox Text="{Binding InfoPixel}"
-                 Style="{StaticResource STextBox}"
-                 Width="350"
-                 Margin="15"/>
+            <TextBox Text="{Binding InfoPixel}"
+             Style="{StaticResource STextBox}"
+             Width="350"
+             Margin="15"/>
 
-        <TextBox Text="{Binding InfoPixelCoordinate}"
-                 Style="{StaticResource STextBox}"
-                 Width="350"
-                 Margin="15"/>
+            <TextBox Text="{Binding InfoPixelCoordinate}"
+             Style="{StaticResource STextBox}"
+             Width="350"
+             Margin="15"/>
 
-    </StackPanel>
+            <Label Content="Exposure"
+           Style="{StaticResource SLabelValue}"/>
+            <Slider Value="{Binding Exposure, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            Minimum="-20" Maximum="20"/>
+
+            <Label Content="Brightness"
+           Style="{StaticResource SLabelValue}"/>
+            <Slider Value="{Binding Brightness, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            Minimum="-100" Maximum="100"/>
+
+            <Label Content="Contrast"
+           Style="{StaticResource SLabelValue}"/>
+            <Slider Value="{Binding Contrast, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            Minimum="-20" Maximum="20"/>
+
+        </StackPanel>
+    </ScrollViewer>
     
 </UserControl>
