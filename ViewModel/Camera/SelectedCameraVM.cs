@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using WARD.Core.Entity.Camera;
 using Ookii.Dialogs.Wpf;
+using CheckingCamera.Model;
 
 namespace CheckingCamera.ViewModel.Camera
 {
@@ -14,6 +15,8 @@ namespace CheckingCamera.ViewModel.Camera
         private readonly MainVM _mvvm;
         private readonly ICameraManager _cameraManager;
         private readonly CanvasVM _canvasVM;
+        private string _pathFolderSaveImageStream;
+        private int _countImageInStram;
 
         private bool _isStreamingCam;
         public bool IsStreamingCam
@@ -67,6 +70,18 @@ namespace CheckingCamera.ViewModel.Camera
         public ICommand SaveImageCommand => _saveImageCommand;
 
 
+        private readonly AsyncRelayCommand _saveImageStreamStartCommand;
+        public ICommand SaveImageStreamStartCommand => _saveImageStreamStartCommand;
+
+
+        private readonly AsyncRelayCommand _saveImageStreamEndCommand;
+        public ICommand SaveImageStreamEndCommand => _saveImageStreamEndCommand;
+
+
+        private readonly AsyncRelayCommand _sharpeningAlgorithmCommand;
+        public ICommand SharpeningAlgorithmCommand => _sharpeningAlgorithmCommand;
+
+
         public SelectedCameraVM(MainVM mvvm, ICameraManager cameraManager, CanvasVM canvasVM)
         {
             _mvvm = mvvm;
@@ -84,6 +99,9 @@ namespace CheckingCamera.ViewModel.Camera
             _startStreamCommand = new AsyncRelayCommand(StartStreamImplAsync, CanStartStream);
             _stopStreamCommand = new AsyncRelayCommand(StopStreamImplAsync, CanStopStream);
             _saveImageCommand = new AsyncRelayCommand(SaveImageImplAsync, CanSaveImage);
+            _saveImageStreamStartCommand = new AsyncRelayCommand(SaveImageStreamStartImplAsync, CanSaveImageStreamStart);
+            _saveImageStreamEndCommand = new AsyncRelayCommand(SaveImageStreamEndImplAsync, CanSaveImageStreamEnd);
+            _sharpeningAlgorithmCommand = new AsyncRelayCommand(SharpeningAlgorithmImplAsync, CanSharpeningAlgorithm);
         }
 
        
@@ -110,7 +128,6 @@ namespace CheckingCamera.ViewModel.Camera
                 }
             }
         }
-
         private void OnCameraFrameChanged(object sender, Image<Bgr, byte> frame)
         {
             // Событие приходит из фонового потока, нужно перебросить в UI-поток (WPF)
@@ -120,7 +137,6 @@ namespace CheckingCamera.ViewModel.Camera
                 _canvasVM.Image = frame;
             });
         }
-
         private bool CanStartStream() => !IsStreamingCam;
 
 
@@ -147,7 +163,6 @@ namespace CheckingCamera.ViewModel.Camera
                 }
             }
         }
-
         private bool CanStopStream() => IsStreamingCam;
 
 
@@ -164,6 +179,45 @@ namespace CheckingCamera.ViewModel.Camera
             {
             }
         }
+        private bool CanSaveImage()
+        {
+            return true;
+        }
+
+
+        private async Task SaveImageStreamStartImplAsync()
+        {
+            _pathFolderSaveImageStream = SelectedPathFolder();
+
+            SelectedCamera.StreamImageChanged += OnCameraSaveImageChanged;
+        }
+        private void OnCameraSaveImageChanged(object sender, Image<Bgr, byte> frame)
+        {
+            if (!string.IsNullOrEmpty(_pathFolderSaveImageStream))
+            {
+                _countImageInStram++;
+                frame.Save($@"{_pathFolderSaveImageStream}\{_countImageInStram}.png");
+            }
+        }
+        private bool CanSaveImageStreamStart() => true;
+
+
+        private async Task SaveImageStreamEndImplAsync()
+        {
+            SelectedCamera.StreamImageChanged -= OnCameraSaveImageChanged;
+            _countImageInStram = 0;
+        }
+        private bool CanSaveImageStreamEnd() => true;
+
+
+        private async Task SharpeningAlgorithmImplAsync()
+        {
+            string beterImage = SharpnessHelper.FindSharpestImage(_pathFolderSaveImageStream);
+            _canvasVM.Image = new Image<Bgr, byte>(beterImage);
+        }
+        private bool CanSharpeningAlgorithm() => true;
+
+
 
         private string SelectedPathFolder()
         {
@@ -178,11 +232,5 @@ namespace CheckingCamera.ViewModel.Camera
             }
             throw new AggregateException();
         }
-
-        private bool CanSaveImage()
-        {
-            return true;
-        }
-
     }
 }

@@ -28,6 +28,22 @@
         Command="{Binding SaveImageCommand}"
         Style="{StaticResource SButton}"/>
 
+        <Button Content="Начать сохранять фото стрима"
+        Margin="15"
+        Command="{Binding SaveImageStreamStartCommand}"
+        Style="{StaticResource SButton}"/>
+
+        <Button Content="Закончить сохранять фото стрима"
+        Margin="15"
+        Command="{Binding SaveImageStreamEndCommand}"
+        Style="{StaticResource SButton}"/>
+
+        <Button Content="Начать алгоритм резкости"
+         Margin="15"
+         Command="{Binding SharpeningAlgorithmCommand}"
+         Style="{StaticResource SButton}"/>
+
+
     </StackPanel>
     
 </UserControl>
