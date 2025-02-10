@@ -33,6 +33,9 @@ namespace CheckingCamera.ViewModel.Camera
             }
         }
 
+        private string _infoPixel;
+        public string InfoPixel { get => _infoPixel; set => Set(ref _infoPixel, value); }
+
 
         private ICamera _selectedCamera;
         public ICamera SelectedCamera

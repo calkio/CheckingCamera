@@ -1,9 +1,5 @@
 ﻿using Camera.API;
-using CheckingCamera.Infastructure.Command;
 using CheckingCamera.ViewModel.Base;
-using System.Windows.Input;
-using WARD.Core.Configuration.DTO;
-using WARD.Core.Entity.Image;
 
 namespace CheckingCamera.ViewModel.Camera.Base
 {

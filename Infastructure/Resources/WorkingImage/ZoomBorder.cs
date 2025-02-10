@@ -5,6 +5,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows;
 using CheckingCamera.ViewModel.Camera;
+using System.Net;
 
 namespace CheckingCamera.Infastructure.Resources.WorkingImage
 {
@@ -58,6 +59,7 @@ namespace CheckingCamera.Infastructure.Resources.WorkingImage
                 this.MouseLeftButtonUp += Image_MouseLeftButtonUp;
                 this.MouseMove += child_MouseMove;
                 this.MouseMove += Image_MouseMove;
+                this.MouseMove += InfoPosition;
                 this.PreviewMouseRightButtonDown += new MouseButtonEventHandler(child_PreviewMouseRightButtonDown);
 
                 if (child is Image image)
@@ -288,6 +290,17 @@ namespace CheckingCamera.Infastructure.Resources.WorkingImage
                 return new Point(pixelX, pixelY);
             }
             return point;
+        }
+
+        private void InfoPosition(object sender, MouseEventArgs e)
+        {
+            var pixel = e.GetPosition(this);
+
+            var vm = this.DataContext as IZoomBorderViewModel;
+            if (vm != null)
+            {
+                vm.OnMouseMove(ConvertToImageCoordinates(pixel));
+            }
         }
     }
 }

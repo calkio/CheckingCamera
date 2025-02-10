@@ -44,6 +44,11 @@
          Style="{StaticResource SButton}"/>
 
 
+        <TextBox Text="{Binding InfoPixel}"
+                 Style="{StaticResource STextBox}"
+                 Width="350"
+                 Margin="15"/>
+
     </StackPanel>
     
 </UserControl>

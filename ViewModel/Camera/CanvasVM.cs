@@ -4,6 +4,7 @@ using Emgu.CV.Structure;
 using Emgu.CV;
 using System.Collections.ObjectModel;
 using WARD.Core.Entity.Image;
+using System.Windows;
 
 namespace CheckingCamera.ViewModel.Camera
 {
@@ -81,6 +82,21 @@ namespace CheckingCamera.ViewModel.Camera
                 clone.Draw(new System.Drawing.Rectangle(_segment.X, _segment.Y, _segment.Width, _segment.Height), new Bgr(System.Drawing.Color.Red), 2); // Рисуем прямоугольник на изображении
 
                 Image = clone;
+            }
+        }
+
+        public void OnMouseMove(Point pixel)
+        {
+            try
+            {
+                var channelB = _image.Data[(int)pixel.Y, (int)pixel.X, 0];
+                var channelG = _image.Data[(int)pixel.Y, (int)pixel.X, 1];
+                var channelR = _image.Data[(int)pixel.Y, (int)pixel.X, 2];
+                string newInfo = $"B - {channelB}, G - {channelG}, R - {channelR}";
+                _mvvm.CameraVM.SelectedCameraVM.InfoPixel = newInfo;
+            }
+            catch
+            {
             }
         }
     }
