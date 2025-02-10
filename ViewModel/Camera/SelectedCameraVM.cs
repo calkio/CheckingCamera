@@ -37,6 +37,10 @@ namespace CheckingCamera.ViewModel.Camera
         public string InfoPixel { get => _infoPixel; set => Set(ref _infoPixel, value); }
 
 
+        private string _infoPixelCoordinate;
+        public string InfoPixelCoordinate { get => _infoPixelCoordinate; set => Set(ref _infoPixelCoordinate, value); }
+
+
         private ICamera _selectedCamera;
         public ICamera SelectedCamera
         {

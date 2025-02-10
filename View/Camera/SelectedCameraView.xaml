@@ -49,6 +49,11 @@
                  Width="350"
                  Margin="15"/>
 
+        <TextBox Text="{Binding InfoPixelCoordinate}"
+                 Style="{StaticResource STextBox}"
+                 Width="350"
+                 Margin="15"/>
+
     </StackPanel>
     
 </UserControl>

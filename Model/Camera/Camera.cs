@@ -9,7 +9,7 @@ namespace CheckingCamera.Model.Camera
         public int Index { get; }
         public string Name { get; }
         public string Path { get; }
-        public int Exposure { get; set; } = -9;
+        public int Exposure { get; set; } = 5;
         public int Brightness { get; set; } = 10;
         public int Contrast { get; set; } = 1;
         public int Focus { get; set; } = 0;

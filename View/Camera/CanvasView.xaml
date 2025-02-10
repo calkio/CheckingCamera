@@ -21,7 +21,7 @@
 
         <zoom:ZoomBorder>
             <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}" 
-                   ClipToBounds="True" Stretch="Uniform" />
+                   ClipToBounds="True" Stretch="UniformToFill" />
         </zoom:ZoomBorder>
 
     </Grid>
