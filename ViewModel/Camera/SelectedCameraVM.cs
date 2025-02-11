@@ -86,6 +86,11 @@ namespace CheckingCamera.ViewModel.Camera
         public string TitleContrast { get => _titleContrast; set => Set(ref _titleContrast, value); }
 
 
+        public string _beterSharpness;
+        public string BeterSharpness { get => _beterSharpness; set => Set(ref _beterSharpness, value); }
+
+        public string _currentSharpness;
+        public string CurrentSharpness { get => _currentSharpness; set => Set(ref _currentSharpness, value); }
 
 
         private ICamera _selectedCamera;
@@ -153,6 +158,9 @@ namespace CheckingCamera.ViewModel.Camera
             _titleBrightness = $"Brightness: {Brightness}";
             _titleContrast = $"Contrast: {Contrast}";
 
+            _beterSharpness = $"Лучшая резкость: {BeterSharpness}";
+            _currentSharpness = $"Текущая резкость: {CurrentSharpness}";
+
             // Инициализация команд
             _startStreamCommand = new AsyncRelayCommand(StartStreamImplAsync, CanStartStream);
             _stopStreamCommand = new AsyncRelayCommand(StopStreamImplAsync, CanStopStream);
@@ -193,6 +201,7 @@ namespace CheckingCamera.ViewModel.Camera
             {
                 // Обновляем CanvasVM.Image, чтобы видеть "живую картинку"
                 _canvasVM.Image = frame;
+                CurrentSharpness = $"Текущая резкость: {Math.Round(SharpnessHelper.ComputeSharpness(frame.Mat), 1)}";
             });
         }
         private bool CanStartStream() => !IsStreamingCam;
@@ -270,8 +279,10 @@ namespace CheckingCamera.ViewModel.Camera
 
         private async Task SharpeningAlgorithmImplAsync()
         {
-            string beterImage = SharpnessHelper.FindSharpestImage(_pathFolderSaveImageStream);
+            var beterSharpest = SharpnessHelper.FindBeterSharpest(_pathFolderSaveImageStream);
+            string? beterImage = beterSharpest.bestFile;
             _canvasVM.Image = new Image<Bgr, byte>(beterImage);
+            BeterSharpness = $"Лучшая резкость: {Math.Round(beterSharpest.bestSharpness, 1)}";
         }
         private bool CanSharpeningAlgorithm() => true;
 

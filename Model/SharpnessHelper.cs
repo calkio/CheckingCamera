@@ -11,12 +11,12 @@ namespace CheckingCamera.Model
         /// Возвращает путь к файлу в folderPath, у которого "резкость" (Laplacian variance) максимальна.
         /// Если файлов нет, возвращает null.
         /// </summary>
-        public static string FindSharpestImage(string folderPath)
+        public static (string? bestFile, double bestSharpness) FindBeterSharpest(string folderPath)
         {
             if (!Directory.Exists(folderPath))
             {
                 Console.WriteLine("Указанная папка не существует: " + folderPath);
-                return null;
+                return (null, 0);
             }
 
             // Собираем все .png-файлы
@@ -24,7 +24,7 @@ namespace CheckingCamera.Model
             if (files.Length == 0)
             {
                 Console.WriteLine("В папке нет PNG-файлов.");
-                return null;
+                return (null, 0);
             }
 
             string bestFile = null;
@@ -53,13 +53,13 @@ namespace CheckingCamera.Model
             }
 
             Console.WriteLine($"Самое резкое изображение: {bestFile}, резкость: {bestSharpness}");
-            return bestFile;
+            return (bestFile, bestSharpness);
         }
 
         /// <summary>
         /// Вычисляет "резкость" (через дисперсию Лапласиана) для переданного кадра/изображения.
         /// </summary>
-        private static double ComputeSharpness(Mat frame)
+        public static double ComputeSharpness(Mat frame)
         {
             Mat gray = new Mat();
             CvInvoke.CvtColor(frame, gray, ColorConversion.Bgr2Gray);
