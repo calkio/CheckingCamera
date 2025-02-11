@@ -49,8 +49,12 @@ namespace CheckingCamera.ViewModel.Camera
             {
                 Set(ref _exposure, value);
                 SelectedCamera.Exposure = value;
+                TitleExposure = $"Exposure: {value}";
             }
         }
+        private string _titleExposure;
+        public string TitleExposure { get => _titleExposure; set => Set(ref _titleExposure, value); }
+
 
         private int _brightness;
         public int Brightness
@@ -60,8 +64,12 @@ namespace CheckingCamera.ViewModel.Camera
             {
                 Set(ref _brightness, value);
                 SelectedCamera.Brightness = value;
+                TitleBrightness = $"Brightness: {value}";
             }
         }
+        private string _titleBrightness;
+        public string TitleBrightness { get => _titleBrightness; set => Set(ref _titleBrightness, value); }
+
 
         private int _contrast;
         public int Contrast
@@ -71,8 +79,13 @@ namespace CheckingCamera.ViewModel.Camera
             {
                 Set(ref _contrast, value);
                 SelectedCamera.Contrast = value;
+                TitleContrast = $"Contrast: {value}";
             }
         }
+        private string _titleContrast;
+        public string TitleContrast { get => _titleContrast; set => Set(ref _titleContrast, value); }
+
+
 
 
         private ICamera _selectedCamera;
@@ -135,6 +148,10 @@ namespace CheckingCamera.ViewModel.Camera
             {
                 SelectedCamera = _allCameras[0];
             }
+
+            _titleExposure = $"Exposure: {Exposure}";
+            _titleBrightness = $"Brightness: {Brightness}";
+            _titleContrast = $"Contrast: {Contrast}";
 
             // Инициализация команд
             _startStreamCommand = new AsyncRelayCommand(StartStreamImplAsync, CanStartStream);

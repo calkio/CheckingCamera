@@ -56,20 +56,20 @@
              Width="350"
              Margin="15"/>
 
-            <Label Content="Exposure"
+            <Label Content="{Binding TitleExposure, UpdateSourceTrigger=PropertyChanged}"
            Style="{StaticResource SLabelValue}"/>
             <Slider Value="{Binding Exposure, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-            Minimum="-20" Maximum="100"/>
+            Minimum="-11" Maximum="-2"/>
 
-            <Label Content="Brightness"
+            <Label Content="{Binding TitleBrightness, UpdateSourceTrigger=PropertyChanged}"
            Style="{StaticResource SLabelValue}"/>
             <Slider Value="{Binding Brightness, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-            Minimum="-100" Maximum="100"/>
+            Minimum="-70" Maximum="70"/>
 
-            <Label Content="Contrast"
+            <Label Content="{Binding TitleContrast, UpdateSourceTrigger=PropertyChanged}"
            Style="{StaticResource SLabelValue}"/>
             <Slider Value="{Binding Contrast, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-            Minimum="-20" Maximum="20"/>
+            Minimum="0" Maximum="70"/>
 
         </StackPanel>
     </ScrollViewer>
