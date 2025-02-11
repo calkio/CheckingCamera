@@ -17,6 +17,8 @@ namespace CheckingCamera.ViewModel.Camera
         private readonly CanvasVM _canvasVM;
         private string _pathFolderSaveImageStream;
         private int _countImageInStram;
+        private Queue<double> _sharpnessValues = new Queue<double>();
+
 
         private bool _isStreamingCam;
         public bool IsStreamingCam
@@ -196,18 +198,34 @@ namespace CheckingCamera.ViewModel.Camera
         }
         private void OnCameraFrameChanged(object sender, Image<Bgr, byte> frame)
         {
-            // Событие приходит из фонового потока, нужно перебросить в UI-поток (WPF)
+            // Событие приходит из фонового потока, перебрасываем в UI-поток (WPF)
             System.Windows.Application.Current.Dispatcher.Invoke(() =>
             {
-                // Обновляем CanvasVM.Image, чтобы видеть "живую картинку"
+                // Обновляем отображаемое изображение
                 _canvasVM.Image = frame;
                 if (_canvasVM.SegmentPhoto != null)
                 {
-                    CurrentSharpness = $"Текущая резкость: {Math.Round(SharpnessHelper.ComputeSharpness(frame, _canvasVM.SegmentPhoto), 1)}";
+                    // Вычисляем резкость для текущего кадра
+                    double currentSharpness = SharpnessHelper.ComputeSharpness(frame, _canvasVM.SegmentPhoto);
+
+                    // Добавляем новое значение резкости в очередь
+                    _sharpnessValues.Enqueue(currentSharpness);
+
+                    // Если накопилось более 5 значений, удаляем самое старое
+                    if (_sharpnessValues.Count > 5)
+                    {
+                        _sharpnessValues.Dequeue();
+                    }
+
+                    // Вычисляем среднее значение резкости по последним 5 кадрам
+                    double averageSharpness = _sharpnessValues.Average();
+                    CurrentSharpness = $"Текущая резкость: {Math.Round(averageSharpness, 1)}";
+
                     _canvasVM.DrawRectangle();
                 }
             });
         }
+
         private bool CanStartStream() => !IsStreamingCam;
 
 
