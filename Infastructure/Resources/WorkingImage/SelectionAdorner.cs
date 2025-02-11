@@ -32,7 +32,7 @@ namespace CheckingCamera.Infastructure.Resources.WorkingImage
             double height = Math.Abs(Start.Y - End.Y - 3);
 
             Rect rect = new Rect(x, y, width, height);
-            drawingContext.DrawRectangle(null, new Pen(_rectangle.Stroke, _rectangle.StrokeThickness) { DashStyle = new DashStyle(_rectangle.StrokeDashArray, 0) }, rect);
+            //drawingContext.DrawRectangle(null, new Pen(_rectangle.Stroke, _rectangle.StrokeThickness) { DashStyle = new DashStyle(_rectangle.StrokeDashArray, 0) }, rect);
         }
     }
 }

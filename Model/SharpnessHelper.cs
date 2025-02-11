@@ -2,6 +2,7 @@
 using Emgu.CV.Structure;
 using Emgu.CV;
 using System.IO;
+using CheckingCamera.Model.Abstraction;
 
 namespace CheckingCamera.Model
 {
@@ -11,7 +12,7 @@ namespace CheckingCamera.Model
         /// Возвращает путь к файлу в folderPath, у которого "резкость" (Laplacian variance) максимальна.
         /// Если файлов нет, возвращает null.
         /// </summary>
-        public static (string? bestFile, double bestSharpness) FindBeterSharpest(string folderPath)
+        public static (string? bestFile, double bestSharpness) FindBeterSharpest(string folderPath, SegmentPhoto segment)
         {
             if (!Directory.Exists(folderPath))
             {
@@ -35,9 +36,9 @@ namespace CheckingCamera.Model
                 try
                 {
                     // Загружаем изображение как цветное (можно и как ч/б, если нужно)
-                    using (Mat image = CvInvoke.Imread(file, ImreadModes.Color))
+                    using (Image<Bgr, byte> image = new Image<Bgr, byte>(file))
                     {
-                        double sharpness = ComputeSharpness(image);
+                        double sharpness = ComputeSharpness(image, segment);
 
                         if (sharpness > bestSharpness)
                         {
@@ -59,8 +60,11 @@ namespace CheckingCamera.Model
         /// <summary>
         /// Вычисляет "резкость" (через дисперсию Лапласиана) для переданного кадра/изображения.
         /// </summary>
-        public static double ComputeSharpness(Mat frame)
+        public static double ComputeSharpness(Image<Bgr, byte> image, SegmentPhoto segment)
         {
+            var cropImage = CropImage.CropImageBGR(image, segment);
+            Mat frame = cropImage.Mat;
+
             Mat gray = new Mat();
             CvInvoke.CvtColor(frame, gray, ColorConversion.Bgr2Gray);
 

@@ -2,16 +2,17 @@
 using CheckingCamera.ViewModel.Base;
 using Emgu.CV.Structure;
 using Emgu.CV;
-using System.Collections.ObjectModel;
 using System.Windows;
+using CheckingCamera.Model.Abstraction;
 
 namespace CheckingCamera.ViewModel.Camera
 {
     internal class CanvasVM : BaseVM, IZoomBorderViewModel
     {
         private MainVM _mvvm;
-        int _countSegment = 0;
 
+        private SegmentPhoto _segmentPhoto;
+        public SegmentPhoto SegmentPhoto { get => _segmentPhoto; set => Set(ref _segmentPhoto, value); }
 
         private Image<Bgr, Byte> _image;
         public Image<Bgr, Byte> Image { get => _image; set => Set(ref _image, value); }
@@ -50,6 +51,19 @@ namespace CheckingCamera.ViewModel.Camera
             int y = (int)topLeft.Y;
             int width = Math.Abs((int)topLeft.X - (int)bottomRight.X);
             int height = Math.Abs((int)topLeft.Y - (int)bottomRight.Y);
+
+            SegmentPhoto = new SegmentPhoto(x, y, width, height);
+        }
+
+        public void DrawRectangle()
+        {
+            if (Image != null)
+            {
+                var clone = Image.Clone();
+                clone.Draw(new System.Drawing.Rectangle(_segmentPhoto.X - 2, _segmentPhoto.Y - 2, _segmentPhoto.Width + 4, _segmentPhoto.Height + 4), new Bgr(System.Drawing.Color.Red), 2); // Рисуем прямоугольник на изображении
+
+                Image = clone;
+            }
         }
 
         public void OnMouseMove(Point pixel)

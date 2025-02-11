@@ -201,7 +201,11 @@ namespace CheckingCamera.ViewModel.Camera
             {
                 // Обновляем CanvasVM.Image, чтобы видеть "живую картинку"
                 _canvasVM.Image = frame;
-                CurrentSharpness = $"Текущая резкость: {Math.Round(SharpnessHelper.ComputeSharpness(frame.Mat), 1)}";
+                if (_canvasVM.SegmentPhoto != null)
+                {
+                    CurrentSharpness = $"Текущая резкость: {Math.Round(SharpnessHelper.ComputeSharpness(frame, _canvasVM.SegmentPhoto), 1)}";
+                    _canvasVM.DrawRectangle();
+                }
             });
         }
         private bool CanStartStream() => !IsStreamingCam;
@@ -279,10 +283,13 @@ namespace CheckingCamera.ViewModel.Camera
 
         private async Task SharpeningAlgorithmImplAsync()
         {
-            var beterSharpest = SharpnessHelper.FindBeterSharpest(_pathFolderSaveImageStream);
-            string? beterImage = beterSharpest.bestFile;
-            _canvasVM.Image = new Image<Bgr, byte>(beterImage);
-            BeterSharpness = $"Лучшая резкость: {Math.Round(beterSharpest.bestSharpness, 1)}";
+            if (_canvasVM.SegmentPhoto != null)
+            {
+                var beterSharpest = SharpnessHelper.FindBeterSharpest(_pathFolderSaveImageStream, _canvasVM.SegmentPhoto);
+                string? beterImage = beterSharpest.bestFile;
+                _canvasVM.Image = new Image<Bgr, byte>(beterImage);
+                BeterSharpness = $"Лучшая резкость: {Math.Round(beterSharpest.bestSharpness, 1)}";
+            }
         }
         private bool CanSharpeningAlgorithm() => true;
 
