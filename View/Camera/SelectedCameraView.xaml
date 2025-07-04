@@ -60,17 +60,17 @@
             <Label Content="{Binding TitleExposure, UpdateSourceTrigger=PropertyChanged}"
                    Style="{StaticResource SLabelValue}"/>
             <Slider Value="{Binding Exposure, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Minimum="-11" Maximum="-2"/>
+                    Minimum="-20" Maximum="10"/>
 
             <Label Content="{Binding TitleBrightness, UpdateSourceTrigger=PropertyChanged}"
                    Style="{StaticResource SLabelValue}"/>
             <Slider Value="{Binding Brightness, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Minimum="-70" Maximum="70"/>
+                    Minimum="-127" Maximum="127"/>
 
             <Label Content="{Binding TitleContrast, UpdateSourceTrigger=PropertyChanged}"
                    Style="{StaticResource SLabelValue}"/>
             <Slider Value="{Binding Contrast, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                    Minimum="0" Maximum="70"/>
+                    Minimum="0" Maximum="255"/>
 
             
             <Label Content="{Binding BeterSharpness, UpdateSourceTrigger=PropertyChanged}"

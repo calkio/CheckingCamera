@@ -11,7 +11,7 @@ namespace CheckingCamera.Model.Camera
         public string Path { get; }
 
 
-        private int _exposure = -10;
+        private int _exposure = -7;
         public int Exposure
         {
             get => _exposure;
@@ -25,7 +25,7 @@ namespace CheckingCamera.Model.Camera
             }
         }
 
-        private int _brightness = 10;
+        private int _brightness = 127;
         public int Brightness
         {
             get => _brightness;
@@ -39,7 +39,7 @@ namespace CheckingCamera.Model.Camera
             }
         }
 
-        private int _contrast = 1;
+        private int _contrast = 255;
         public int Contrast
         {
             get => _contrast;
@@ -66,8 +66,8 @@ namespace CheckingCamera.Model.Camera
         private readonly object frameLock = new object();
         private CancellationTokenSource? _cancellationTokenSource;
 
-        private int frameWidth = 3264;
-        private int frameHeight = 2448;
+        private int frameWidth = 10000;
+        private int frameHeight = 10000;
 
         // Храним последний полученный кадр, чтобы CapturePhoto мог вернуть его
         private Image<Bgr, byte>? _lastFrame;
@@ -94,14 +94,17 @@ namespace CheckingCamera.Model.Camera
             }
 
             // Применяем параметры (не все камеры это поддерживают)
-            _videoCapture.Set(CapProp.Brightness, Brightness);
-            _videoCapture.Set(CapProp.Contrast, Contrast);
-            _videoCapture.Set(CapProp.FrameWidth, frameWidth);
-            _videoCapture.Set(CapProp.FrameHeight, frameHeight);
-            _videoCapture.Set(CapProp.Focus, Focus);
+            //_videoCapture.Set(CapProp.FrameWidth, frameWidth);
+            //_videoCapture.Set(CapProp.FrameHeight, frameHeight);
+            //_videoCapture.Set(CapProp.Brightness, Brightness);
+            //_videoCapture.Set(CapProp.Contrast, Contrast);
+            //_videoCapture.Set(CapProp.Focus, Focus);
 
-            _videoCapture.Set(CapProp.AutoExposure, 0);
-            _videoCapture.Set(CapProp.Exposure, Exposure);
+            //_videoCapture.Set(CapProp.AutoExposure, 0);
+            //_videoCapture.Set(CapProp.Autofocus, 0);
+            //_videoCapture.Set(CapProp.Exposure, Exposure);
+            //_videoCapture.Set(CapProp.Backlight, 1);
+            _videoCapture.Set(CapProp.Settings, 0);
 
             // Делаем короткую паузу, чтобы камера «прогрелась»:
             Thread.Sleep(500);
